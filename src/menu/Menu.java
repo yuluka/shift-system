@@ -14,7 +14,7 @@ public class Menu {
 	}
 	
 	public static void mainMenu() {
-		System.out.println("\n----- Menu -----"
+		System.out.println("\n------ Menu ------"
 				+ "\n¿Qué desea hacer?"
 				+ "\n1) Dar turno."
 				+ "\n2) Mostrar turno."
@@ -53,7 +53,7 @@ public class Menu {
 	}
 	
 	public static void giveTurn() {
-		System.out.println("\n------ Dar turno -----");
+		System.out.println("\n------ Dar turno ------");
 		
 		if(TurnsData.addTurn()) {
 			System.out.println("\nTurno dado correctamente.");
@@ -65,19 +65,36 @@ public class Menu {
 	}
 	
 	public static void showTurn() {
-		System.out.println("\n------ Mostrar turno -----");
+		System.out.println("\n------ Mostrar turno ------");
+
+		System.out.println("El turno actual es: " + TurnsData.showActual());
 
 		mainMenu();
 	}
 	
 	public static void nextTurn() {
-		System.out.println("\n------ Pasar turno -----");
-
+		System.out.println("\n------ Pasar turno ------");
+		
+		if(TurnsData.nextTurn()) {
+			System.out.println("\nTurno pasado correctamente.");
+		} else {
+			System.out.println("\nNo se ha dado ningún turno aún.");
+		}
+		
 		mainMenu();
 	}
 	
 	public static void deleteActualTurn() {
-		System.out.println("\n------ Eliminar turno actual -----");
+		System.out.println("\n------ Eliminar turno actual ------");
+		
+		if(TurnsData.deleteActual()) {
+			System.out.println("\nTurno eliminado correctamente.");
+		} else {
+			System.out.println("\nNo se ha dado ningún turno aún.");
+		}
+		
+		System.out.println("Los turnos ahora son:"
+				+ "\n" + TurnsData.printTurns());
 		
 		mainMenu();
 	}
