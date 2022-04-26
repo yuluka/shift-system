@@ -2,6 +2,8 @@ package menu;
 
 import java.util.Scanner;
 
+import model.TurnsData;
+
 public class Menu {
 
 	private static Scanner in = new Scanner(System.in);
@@ -53,6 +55,12 @@ public class Menu {
 	public static void giveTurn() {
 		System.out.println("\n------ Dar turno -----");
 		
+		if(TurnsData.addTurn()) {
+			System.out.println("\nTurno dado correctamente.");
+		} else {
+			System.out.println("\nNo hay turnos disponibles para dar.");
+		}
+		
 		mainMenu();
 	}
 	
@@ -70,7 +78,7 @@ public class Menu {
 	
 	public static void deleteActualTurn() {
 		System.out.println("\n------ Eliminar turno actual -----");
-
+		
 		mainMenu();
 	}
 	

@@ -7,6 +7,7 @@ public class Turn {
 	
 	private int number;
 	private boolean actual;
+	private int passed; //Counts the number of times a person has passed the turn.
 	
 	public Turn(int number) {
 		super();
@@ -43,5 +44,13 @@ public class Turn {
 
 	public void setActual(boolean actual) {
 		this.actual = actual;
+	}
+
+	public int getPassed() {
+		return passed;
+	}
+
+	public void addPassed() {
+		++passed;
 	}
 }
