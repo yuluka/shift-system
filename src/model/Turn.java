@@ -6,12 +6,11 @@ public class Turn {
 	private Turn previous;
 	
 	private int number;
-	private boolean actual;
 	private int passed; //Counts the number of times a person has passed the turn.
 	
 	public Turn(int number) {
-		super();
 		this.number = number;
+		passed = 0;
 	}
 
 	public Turn getNext() {
@@ -36,14 +35,6 @@ public class Turn {
 
 	public void setNumber(int number) {
 		this.number = number;
-	}
-
-	public boolean isActual() {
-		return actual;
-	}
-
-	public void setActual(boolean actual) {
-		this.actual = actual;
 	}
 
 	public int getPassed() {

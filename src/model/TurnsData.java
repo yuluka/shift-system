@@ -3,6 +3,7 @@ package model;
 public class TurnsData {
 	
 	private static final int TURNS_LIMIT = 50;
+	private static final int PASS_TURNS_LIMIT = 3;
 	
 	private static Turn head;
 	private static Turn tail;
@@ -49,56 +50,80 @@ public class TurnsData {
 	
 	public static String showActual() {
 		if(actual == null) {
-			return "No se ha enregado ningún turno aún";
+			return "No se ha enregado ningún turno aún.";
 		}
 		
 		return actual.getNumber() + "";
 	}
 	
-	public static boolean nextTurn() {
-		return nextTurn(head);
-	}
-	
-	private static boolean nextTurn(Turn current) {		
+	public static boolean nextTurn() {		
 		if(actual == null) {
 			return false;
-		} else if(current == actual) {
-			actual = current.getNext();
-			return true;
 		}
 		
-		return nextTurn(current.getNext());
+		actual.addPassed();
+			
+		if (actual.getPassed() == PASS_TURNS_LIMIT) {
+			deleteActual();
+		} else {
+			actual = actual.getNext();
+		}
+		
+		return true;
 	}
 	
 	public static boolean deleteActual() {
-		return deleteActual(head);
-	}
-	
-	private static boolean deleteActual(Turn current) {
 		if(actual == null) {
 			return false;
-		} else if(current == actual) {
-			current.getPrevious().setNext(current.getNext());
-			current.getNext().setPrevious(current.getPrevious());
-			actual = current.getNext();
-			current = null;
-			
+		} else if(head == tail) {
+			actual = null;
+			head = null;
+			tail = null;
+
+			--gaveTurns;
 			return true;
-		}
-		
-		return deleteActual(current.getNext());
+		} else if(head == actual) {
+			head.getPrevious().setNext(head.getNext());
+			head.getNext().setPrevious(head.getPrevious());
+			head = head.getNext();
+			actual = head;
+
+			--gaveTurns;
+			return true;
+		} else if(tail == actual) {
+			tail.getPrevious().setNext(tail.getNext());
+			tail.getNext().setPrevious(tail.getPrevious());
+			tail = tail.getPrevious();
+			actual = head;
+
+			--gaveTurns;
+			return true;
+		} else {
+			actual.getPrevious().setNext(actual.getNext());
+			actual.getNext().setPrevious(actual.getPrevious());
+			actual = actual.getNext();
+			
+			--gaveTurns;
+			return true;	
+		}	
 	}
 	
-	public static String printTurns() {
-		return printTurns(0, head, "");
+	public static void printTurns() {
+		printTurns(head);
 	}
 	
-	private static String printTurns(int i, Turn current, String turns) {
-		if(i == 5) {
-			return "";
+	private static void printTurns(Turn current) {
+		if(current == null) {
+			System.out.println("No se han entregado turnos aún.");
+			return;
 		}
 		
-		turns += current.getNumber() + " - ";
-		return printTurns(++i, current.getNext(), turns);
+		if(current.getNext() == head) {
+			System.out.println(current.getNumber());
+			return;
+		}
+		
+		System.out.print(current.getNumber() + " - ");
+		printTurns(current.getNext());
 	}
 }

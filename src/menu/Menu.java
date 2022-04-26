@@ -17,9 +17,10 @@ public class Menu {
 		System.out.println("\n------ Menu ------"
 				+ "\n¿Qué desea hacer?"
 				+ "\n1) Dar turno."
-				+ "\n2) Mostrar turno."
+				+ "\n2) Mostrar turno actual."
 				+ "\n3) Pasar turno."
 				+ "\n4) Eliminar turno actual."
+				+ "\n5) Mostrar todos los turnos dados."
 				+ "\n0) Salir.");
 		
 		int selection = in.nextInt();
@@ -39,6 +40,11 @@ public class Menu {
 		
 		case 4:
 			deleteActualTurn();	
+			break;
+			
+		case 5:
+			seeAllTurns();
+			mainMenu();
 			break;
 			
 		case 0:
@@ -93,9 +99,14 @@ public class Menu {
 			System.out.println("\nNo se ha dado ningún turno aún.");
 		}
 		
-		System.out.println("Los turnos ahora son:"
-				+ "\n" + TurnsData.printTurns());
-		
+		mainMenu();
+	}
+	
+	public static void seeAllTurns() {
+		System.out.println("\n------ Mostrar turnos dados ------\n");
+
+		TurnsData.printTurns();
+
 		mainMenu();
 	}
 	
